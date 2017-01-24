@@ -4,6 +4,8 @@ Project Eutrophication!
 
 Link to google doc: https://docs.google.com/document/d/1RWGaDSdbXt1ven_KN4b5q8Fu8fWllyjKzM8mA0-Dcw4/edit?usp=sharing
 
+Link to site with downloadable pdf of Working Paper 475: https://rucore.libraries.rutgers.edu/rutgers-lib/40694/
+
 The data for Working Paper 477 currently sits as _photo-copy scans_ in the following pdf: http://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=9100PAGW.TXT
 
 The data for Working Paper 476 currently sits as _photo-copy scans_ in the following pdf: https://www.owrb.ok.gov/quality/standards/pdf_standards/scenicrivers/WP476-NationalEutrophicationSurvey.PDF
