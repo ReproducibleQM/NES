@@ -1,0 +1,1 @@
+475 res_review.xls notesNote: Most of these don’t list the line associated with the error, but most were on separate lines. Section 2 shift right 1 (Line 12)Section 4 shift right 1 (outlet section 4b)Missed page 25Shift in 4b (1 right)Shift 1 right in section 2
