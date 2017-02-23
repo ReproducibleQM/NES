@@ -1,7 +1,9 @@
 #' @import compareDF
 #' @examples \dontrun{
+#' diff_csv("474/res.csv", "474/res_review.csv")
 #' diff_csv("475/res.csv", "475/res_review.csv")
 #' diff_csv("476/res.csv", "476/res_review.csv")
+#' diff_csv("477/res.csv", "477/res_review.csv")
 #' }
 diff_csv <- function(original_csv, hand_edit_csv){
   orig_csv  <- read.csv(original_csv, stringsAsFactors = FALSE)
