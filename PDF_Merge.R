@@ -1,10 +1,10 @@
 # Define Paths ------------------------------------------------------------
 
-Path474 <- 'C://Users//cmfor//Documents//Github//gReen2O//474//res_review.csv'
-Path475 <-'C://Users//cmfor//Documents//Github//gReen2O//475//res_review.csv'
-Path476 <- 'C://Users//cmfor//Documents//Github//gReen2O//476//res_review.csv'
-Path477 <- 'C://Users//cmfor//Documents//Github//gReen2O//477//res_review.csv'
-StoretPath <- 'C://Users//cmfor//Documents//Github//gReen2O//storet.csv'
+Path474 <- 'C://Users//cmfor//Documents//GitHub//gReen2O//474//res_review.csv'
+Path475 <-'C://Users//cmfor//Documents//GitHub//gReen2O//475//res_review.csv'
+Path476 <- 'C://Users//cmfor//Documents//GitHub//gReen2O//476//res_review.csv'
+Path477 <- 'C://Users//cmfor//Documents//GitHub//gReen2O//477//res_review.csv'
+StoretPath <- 'C://Users//cmfor//Documents//GitHub//gReen2O//storet.csv'
 
 # Import Data -------------------------------------------------------------
 
@@ -23,6 +23,8 @@ df_final <- merge(df_final, df476, all = TRUE)
 df_final <- merge(df_final, df477, all = TRUE)
 df_final <- merge(df_final, dfStoret, by.x = "storet_code", by.y = "Storet", all.x = TRUE)
 df_final <- df_final[, -2]
+
+df_final$Long <- (-1 * as.numeric(df_final$Long))
 
 # Export Dataframe as CSV -------------------------------------------------
 
