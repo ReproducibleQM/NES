@@ -16,5 +16,14 @@ merge_storet <- function(storet_path, data_path){
   storet$Long <- storet$Long * -1
   
   res <- merge(dt, storet, by.x = "storet_code", by.y = "Storet")
+  
+  browser()
+  library(sp)
+  library(maps)
+    coordinates(res) <- ~Long + Lat
+  map("state")
+  plot(res, add = TRUE)
+  res[which.min(coordinates(res)[,1]),]@data
+  
   res
 }
