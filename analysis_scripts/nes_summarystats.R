@@ -2,7 +2,7 @@
 
 # read the summary file
 # need to figure out how to read file directly from GitHub
-nes_all <- read.csv("/Users/dustinkincaid/gReen2O/res_review_final.csv", header=TRUE, na.strings="NA")
+nes_all <- read.csv("/Users/dustinkincaid/gReen2O/nes_data.csv", header=TRUE, na.strings="NA")
 
 # temporary code: rename JERSEY to NEW JERSEY
 levels(nes_all$state)[levels(nes_all$state)=="JERSEY"] <- "NEW JERSEY"
