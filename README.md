@@ -11,12 +11,10 @@ The data pdfs are available by searching: https://www.epa.gov/nscep
 They are mirrored at: https://github.com/jsta/nesR/tree/master/inst/extdata
 
 ## Notes
-I (@jsta) have written some code to extract the data from the pdf using OCR (Optical Character Recognition). The code is at: https://github.com/jsta/nesR. It is not perfect. Some characters are not correctly identified, each page takes a couple minutes and is a big computation load on my machine. 
+
+The code for extracting the raw data from the archival pdfs is at:
+https://github.com/jsta/nesR
 
 ## Storet Data
+
 Zip file containing storet data txt file at google drive: https://drive.google.com/open?id=0B6_jJ1OU1UUUUmdNQTNDRWR0STg
-
-# Change made on Ryan's system
-# And now an Rstudio change!!
-
-
