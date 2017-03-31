@@ -1,10 +1,10 @@
 # Define Paths ------------------------------------------------------------
 
-Path474 <- 'C://Users//cmfor//Documents//GitHub//gReen2O//qa_data//474//res_review.csv'
-Path475 <-'C://Users//cmfor//Documents//GitHub//gReen2O//qa_data//475//res_review.csv'
-Path476 <- 'C://Users//cmfor//Documents//GitHub//gReen2O//qa_data//476//res_review.csv'
-Path477 <- 'C://Users//cmfor//Documents//GitHub//gReen2O//qa_data//477//res_review.csv'
-StoretPath <- 'C://Users//cmfor//Documents//GitHub//gReen2O//supporting_data//storet.csv'
+Path474 <- '03_qa_data//474//res_review.csv'
+Path475 <- '03_qa_data//475//res_review.csv'
+Path476 <- '03_qa_data//476//res_review.csv'
+Path477 <- '03_qa_data//477//res_review.csv'
+StoretPath <- '04_supporting_data//storet.csv'
 
 # Import Data -------------------------------------------------------------
 
@@ -15,7 +15,6 @@ df476 <- read.csv(Path476, header = TRUE, colClasses = rep("character", 34))
 df477 <- read.csv(Path477, header = TRUE, colClasses = rep("character", 34))
 dfStoret <- read.csv(StoretPath, header = TRUE, colClasses = c(rep("character", 6)))
 dfStoret <- dfStoret[, -c(1:3)]
-
 
 # Add Pdf Origin Column ---------------------------------------------------
 
@@ -36,4 +35,4 @@ df_final$Long <- (-1 * as.numeric(df_final$Long))
 
 # Export Dataframe as CSV -------------------------------------------------
 
-write.csv(df_final, file = "C://users/cmfor//Documents//GitHub//gReen2O//nes_data_revised_03302017.csv")
+write.csv(df_final, file = "nes_data.csv")
