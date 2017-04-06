@@ -4,18 +4,15 @@
 # need to figure out how to read file directly from GitHub
 nes_all <- read.csv("/Users/dustinkincaid/gReen2O/nes_data.csv", header=TRUE, na.strings="NA")
 
-# temporary code: rename JERSEY to NEW JERSEY
-levels(nes_all$state)[levels(nes_all$state)=="JERSEY"] <- "NEW JERSEY"
-# temporary code: classify Lake Wissota in WI (Northeast) to IMPOUNDMENT
-nes_all$lake_type[nes_all$name %in% "LAKE WISSOTA"] <- "IMPOUNDMENT"
-
 # add a column to specify region
-nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", "NEW HAMPSHIRE", "NEW YORK", "MAINE", "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", "MICHIGAN"), "region"] <- "NORTHEAST"
+nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", "NEW HAMPSHIRE", "NEW YORK", "MAINE", "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", "MICHIGAN"), "region"] <- "NORTHEASTERN"
 nes_all[nes_all$state %in% c("ALABAMA", "DELAWARE", "FLORIDA", "GEORGIA", "ILLINOIS", "INDIANA", "KENTUCKY", "MARYLAND", "MISSISSIPPI", "NEW JERSEY", "NORTH CAROLINA", "OHIO", "PENNSYLVANIA", "SOUTH CAROLINA", "TENNESSEE", "VIRGINIA", "WEST VIRGINIA"), "region"] <- "EASTERN"
 nes_all[nes_all$state %in% c("ARKANSAS", "IOWA", "KANSAS", "LOUISIANA", "MISSOURI", "NEBRASKA", "NORTH DAKOTA", "OKLAHOMA", "SOUTH DAKOTA", "TEXAS"), "region"] <- "CENTRAL"
 nes_all[nes_all$state %in% c("ARIZONA", "CALIFORNIA", "COLORADO", "IDAHO", "MONTANA", "NEVADA", "NEW MEXICO", "OREGON", "UTAH", "WASHINGTON", "WYOMING"), "region"] <- "WESTERN"
 # make REGION a factor
 nes_all$region <- as.factor(nes_all$region)
+# reorder region levels so final table reads from west to east 
+nes_all$region <- factor(nes_all$region, levels = c("WESTERN", "CENTRAL", "NORTHEASTERN", "EASTERN"))
 
 # reshape data to [n]es_[a]ll [l]ong format
 library(reshape2)
@@ -40,8 +37,46 @@ summary_nes$N <- as.character(summary_nes$N)
 summary_nes$N <- paste("(", summary_nes$N, ")", sep="")
 
 # now create a column with the 3 values & the +- symbol (using paste?)
-summary_nes$stat <- paste(summary_nes$mean, summary_nes$sd, summary_nes$N, sep=" ")
+summary_nes$stat <- paste(summary_nes$mean, "\u00b1", summary_nes$sd, summary_nes$N, sep=" ")
+# Didn't need to do this so far, but might need to execute the following if +- symbol doesn't work
+# Encoding(summary_nes$stat) <- "UTF-8"
 
-# how to make +- symbol
-x<-"Mean \u00b1 SD or N (%)"
-Encoding(x)<-"UTF-8"
+# now name classify variables into morphometry, physicochemical, & loading variables
+summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[1:5]), "variable_type"] <- "MORPHOMETRY"
+summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[6:12]), "variable_type"] <- "PHYSIOCHEMICAL"
+summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[13:28]), "variable_type"] <- "LOADING"
+
+# let's make three different dataframes for each of the variable types (each will be a separate table)
+morph <- summary_nes[summary_nes$variable_type=="MORPHOMETRY", ]
+physchem <- summary_nes[summary_nes$variable_type=="PHYSIOCHEMICAL", ]
+load <- summary_nes[summary_nes$variable_type=="LOADING", ]
+
+# let's reshape these
+morph_wide <- dcast(morph, variable + lake_type ~ region, value.var="stat")
+physchem_wide <- dcast(physchem, variable + lake_type ~ region, value.var="stat")  
+load_wide <- dcast(load, variable + lake_type ~ region, value.var="stat")
+
+# let's make the tables
+# install.packages("devtools")
+devtools::install_github("rstudio/rmarkdown")
+# For dev version
+devtools::install_github("haozhu233/kableExtra")
+
+# load libraries
+library(knitr)
+library(kableExtra)
+
+# define the table format as 
+kable(morph_wide, format = "latex") %>%
+  kable_styling(latex_options = c("striped", "hold_position"), full_width = F)
+
+
+
+# Example code
+# LaTeX Table
+kable(dt, format = "latex", booktabs = T, caption = "Demo Table") %>%
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                full_width = F) %>%
+  add_header_above(c(" ", "Group 1" = 2, "Group 2[note]" = 2)) %>%
+  add_footnote(c("table footnote"))
+
