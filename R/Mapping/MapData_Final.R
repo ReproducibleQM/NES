@@ -69,29 +69,6 @@ plot(us.nation)
 
 
 
-
-#########  Plot the 4 regions as points of different color  ###############################
-# Get the lat and long column numbers
-lat.col <- which(colnames(lakes.dat) == "Lat")
-long.col <- which(colnames(lakes.dat) == "Long")
-
-# Make points out of the lake locations 
-lakes <- SpatialPoints(coords=na.omit(lakes.dat[,c(long.col, lat.col)]), proj4string=wgs1984.proj)
-# Reproject
-lakes.equal <- spTransform(lakes, us.atlas.proj)
-
-# Make color palatte
-rgbbPal <- colorRampPalette(c('red', 'green', 'blue', 'black'))
-
-# Break into 4 colors...should be able to do this another way
-lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$Pdf,breaks = 4))]
-
-# Plot the points
-plot(us.48)
-points(lakes.equal, cex = .5, col = lakes.dat$Col)
-
-
-
 ########  IDW  ##########################################################
 # Create new columns for lat and long
 lakes.dat$x <- lakes.dat$Long  # define x & y as longitude and latitude - not really necessary...could just do with Long Lat in the next line
@@ -229,3 +206,23 @@ plot(us.nation, add = TRUE)
 
 
 
+###################  REGION MAP  #########################################################
+# Get the lat and long column numbers
+lat.col <- which(colnames(lakes.dat) == "Lat")
+long.col <- which(colnames(lakes.dat) == "Long")
+
+# Make points out of the lake locations 
+lakes <- SpatialPoints(coords=na.omit(lakes.dat[,c(long.col, lat.col)]), proj4string=wgs1984.proj)
+# Reproject
+lakes.equal <- spTransform(lakes, us.atlas.proj)
+
+# Make color palatte
+rgbbPal <- colorRampPalette(c('red', 'green', 'blue', 'black'))
+
+# Break into 4 colors...should be able to do this another way
+lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$Pdf,breaks = 4))]
+
+# Plot the points
+plot(us.n.total, legend = FALSE)
+plot(us.48, add = TRUE, col = "white")
+points(lakes.equal, cex = .5, col = lakes.dat$Col)
