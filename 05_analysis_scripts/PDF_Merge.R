@@ -37,7 +37,7 @@ df_final$Long <- (-1 * as.numeric(df_final$Long))
 
 # fix names
 names(df_final) <- tolower(names(df_final))
-names(df_final)[which(names(df_final) == "sechhi")]
+names(df_final)[which(names(df_final) == "sechhi")] <- "secchi"
 
 
 df_final <- merge(df_final, retention_units, by = c("pdf", "pagenum"), all.x = TRUE, all.y = FALSE)
