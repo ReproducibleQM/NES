@@ -186,6 +186,10 @@ plot(us.nation, add = TRUE)
 # Make a new df with no NAs for conductivity
 lakes.n.total <- lakes.dat[complete.cases(lakes.dat$n_total),]
 
+# # If you want the log values:
+# lakes.n.total$n_total <- abs(lakes.n.total$n_total)
+# lakes.n.total$n_total <- log10(lakes.n.total$n_total)
+
 # Apply the IDW
 idw <- idw(formula = n_total ~ 1, locations = lakes.n.total, newdata = grd)  # apply idw model for the data
 idw.ras <- raster(idw)
