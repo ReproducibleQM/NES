@@ -58,17 +58,17 @@ load_wide <- dcast(load, variable + lake_type ~ region, value.var="stat")
 
 # let's make the tables
 # install.packages("devtools")
-devtools::install_github("rstudio/rmarkdown")
+# devtools::install_github("rstudio/rmarkdown")
 # For dev version
-devtools::install_github("haozhu233/kableExtra")
+# devtools::install_github("haozhu233/kableExtra")
 
 # load libraries
 library(knitr)
 library(kableExtra)
 
 # define the table format as 
-kable(morph_wide, format = "latex") %>%
-  kable_styling(latex_options = c("striped", "hold_position"), full_width = F)
+kable(morph_wide, format = "latex", booktabs = T) %>%
+  kable_styling()
 
 
 
