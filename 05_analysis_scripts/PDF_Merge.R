@@ -33,16 +33,19 @@ df_final <- merge(df_final, df476, all = TRUE)
 df_final <- merge(df_final, df477, all = TRUE)
 df_final <- merge(df_final, dfStoret, by.x = "storet_code", by.y = "Storet", 
                   all.x = TRUE)
-# df_final <- df_final[, -2]
-
 df_final$Long <- (-1 * as.numeric(df_final$Long))
+
+# fix names
 names(df_final) <- tolower(names(df_final))
+names(df_final)[which(names(df_final) == "sechhi")]
+
 
 df_final <- merge(df_final, retention_units, by = c("pdf", "pagenum"), all.x = TRUE, all.y = FALSE)
 
 ret_time_pos <- which(names(df_final) == "retention_time")
 ret_time_units_pos <- which(names(df_final) == "retention_time_units")
 
+# put retention_time and retention_time_units next to each other
 df_final <- df_final[,c(
   1:ret_time_pos, 
   ret_time_units_pos, 
