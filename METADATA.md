@@ -10,8 +10,26 @@ USEPA
 
 * Joseph Stachelek
 Michigan State University
+stachel2@msu.edu
+
+* Chanse Ford
+Michigan State University
+
+* Dustin Kincaid
+Michigan State University
+
+* Katelyn King
+Michigan State University
+
+* Heather Miller
+Michigan State University
+
+* Ryan Nagelkirk
+Michigan State University
 
 ## Abstract (350 word max)
+
+Historical ecological surveys are an important source of baseline information to provide context for contemporary research, yet many of these records are not preserved in a way to ensure their long-term usability. The National Eutrophication Survey database is currently only available as portable document files (PDF) scanned from printed records with no embedded character information. This limits its searchability and the ability of current and future scientists to systematically evaluate its contents. The data was collected by the United States Environmental Protection Agency between 1972 and 1975, as part of an effort to investigate eutrophication in freshwater lakes and reservoirs. Although several studies have hand-transcribed portions of the database in support of specific studies, there have been no systematic attempts to transcribe  and preserve the database in its entirety. Here we use a combination of automated optical character recognition and manual quality assurance to make this data available for analysis. The performance of the optical character recognition procedure was highly variable depending on scan quality. For each of the four archival pdf files, we found an error rate of between 5.9 and 17%. The goal of our approach was to strike a balance efficiency and data quality by combining hand-entry of data with digital transcription technologies. The finished database contains information on the physical characteristics, hydrology, and water quality of about 800 lakes in the continental United States. This database could be combined with more recent data to generate meta analyses of water quality trends and spatial variation across the continental United States.
 
 ## Keywords
 
@@ -125,7 +143,13 @@ long - decimal degrees
 
 ### Extent of Study Description
 
+Inland lakes of the continental United States.
+
 ### Sampling description
+
+United States Environmental Protection Agency. 1975a.
+National eutrophication survey methods, 1973-1976.
+Working Paper Number 175. Office of Research and Development, United States Environmental Protection Agency, Washington, D.C., USA.
 
 ## Distribution Info
 
