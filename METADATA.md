@@ -3,9 +3,6 @@
 ### Dataset Title
 The National Eutrophication Survey: lake characteristics and historical nutrient concentrations
 
-### Organization
-USEPA
-
 ## People and Organizations (for each group member to be included in citation)
 
 * Joseph Stachelek -
@@ -53,9 +50,9 @@ Continental United States
 
 Lat/long coordinates for the northwest corner and southeast corner of spatial coverage
 
-49.38436, -124.72584 
+49 23 3.7  - 124 43 32.88
 
-24.49813, -66.94989
+24 29 53.27 - 66 56 59.6
 
 ## Data Collection Methods
 
