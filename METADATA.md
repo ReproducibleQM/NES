@@ -8,23 +8,23 @@ USEPA
 
 ## People and Organizations (for each group member to be included in citation)
 
-* Joseph Stachelek
-Michigan State University
+* Joseph Stachelek -
+Michigan State University -
 stachel2@msu.edu
 
-* Chanse Ford
+* Chanse Ford -
 Michigan State University
 
-* Dustin Kincaid
+* Dustin Kincaid -
 Michigan State University
 
-* Katelyn King
+* Katelyn King -
 Michigan State University
 
-* Heather Miller
+* Heather Miller -
 Michigan State University
 
-* Ryan Nagelkirk
+* Ryan Nagelkirk -
 Michigan State University
 
 ## Abstract (350 word max)
