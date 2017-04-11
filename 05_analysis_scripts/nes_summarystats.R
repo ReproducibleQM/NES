@@ -2,7 +2,7 @@
 
 # read the summary file
 # need to figure out how to read file directly from GitHub
-nes_all <- read.csv("/Users/dustinkincaid/gReen2O/nes_data.csv", header=TRUE, na.strings="NA")
+nes_all <- read.csv("nes_data.csv", header=TRUE, na.strings="NA", stringsAsFactors = FALSE)
 
 # add a column to specify region
 nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", "NEW HAMPSHIRE", "NEW YORK", "MAINE", "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", "MICHIGAN"), "region"] <- "NORTHEASTERN"
@@ -16,17 +16,28 @@ nes_all$region <- factor(nes_all$region, levels = c("WESTERN", "CENTRAL", "NORTH
 
 # reshape data to [n]es_[a]ll [l]ong format
 library(reshape2)
+
+# nes_all[,9:34] <- apply(nes_all[,9:34], 2, as.numeric) 
+
 nal <- melt(nes_all, 
             id.vars = c("state", "name", "region", "lake_type"),
-            measure.vars = c((names(nes_all)[c(7:34)])))
+            measure.vars = c((names(nes_all)[c(9:34)])))
+nal$value <- as.numeric(nal$value)
+
+# mean(
+#   as.numeric(nal[nal$variable == "p_surface_area_loading" & 
+#            nal$region == "EASTERN" & 
+#            nal$lake_type == "NATURAL", "value"])
+#   , na.rm = TRUE)
 
 # calculate mean, standard dev, and N for each variable by region and lake type
 library(plyr)
 summary_nes = ddply(nal, .(variable, region, lake_type), summarize,
                 mean = mean(value, na.rm=TRUE),
                 sd = sd(value, na.rm=TRUE),
-                N = length(value[!is.na(value)])
-)
+                N = length(value[!is.na(value)]))
+
+# any(!is.na(summary_nes$mean))
 
 # now how to report numbers? let's convert them to character strings & round means & sd's to 2 decimal places for now
 summary_nes$mean <- as.character(round(summary_nes$mean, digits=2))
@@ -39,7 +50,7 @@ summary_nes$N <- paste("(", summary_nes$N, ")", sep="")
 # now create a column with the 3 values & the +- symbol (using paste?)
 summary_nes$stat <- paste(summary_nes$mean, "\u00b1", summary_nes$sd, summary_nes$N, sep=" ")
 # Didn't need to do this so far, but might need to execute the following if +- symbol doesn't work
-# Encoding(summary_nes$stat) <- "UTF-8"
+Encoding(summary_nes$stat) <- "UTF-8"
 
 # now name classify variables into morphometry, physicochemical, & loading variables
 summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[1:5]), "variable_type"] <- "MORPHOMETRY"
@@ -65,18 +76,32 @@ load_wide <- dcast(load, variable + lake_type ~ region, value.var="stat")
 # load libraries
 library(knitr)
 library(kableExtra)
+library(magrittr)
 
 # define the table format as 
-kable(morph_wide, format = "latex", booktabs = T) %>%
-  kable_styling()
+sink_text <- function(dt, fname){
+  unlink(fname)
+  write(file = fname, c("\\documentclass{article}",
+                        "\\usepackage{booktabs}",
+                        "\\usepackage{pdflscape}",
+                        "\\begin{document}",
+                        "\\begin{landscape}",
+                        gsub("±", "$\\\\pm$", dt),
+                        "\\end{landscape}",
+                        "\\end{document}"))
+}
 
 
+
+
+sink_text((kable(morph_wide, format = "latex", booktabs = T) %>%
+  kable_styling()), "test.tex")
 
 # Example code
 # LaTeX Table
-kable(dt, format = "latex", booktabs = T, caption = "Demo Table") %>%
-  kable_styling(latex_options = c("striped", "hold_position"), 
-                full_width = F) %>%
-  add_header_above(c(" ", "Group 1" = 2, "Group 2[note]" = 2)) %>%
-  add_footnote(c("table footnote"))
+# kable(dt, format = "latex", booktabs = T, caption = "Demo Table") %>%
+#   kable_styling(latex_options = c("striped", "hold_position"), 
+#                 full_width = F) %>%
+#   add_header_above(c(" ", "Group 1" = 2, "Group 2[note]" = 2)) %>%
+#   add_footnote(c("table footnote"))
 
