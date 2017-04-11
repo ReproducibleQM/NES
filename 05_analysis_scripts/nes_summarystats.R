@@ -91,11 +91,8 @@ sink_text <- function(dt, fname){
                         "\\end{document}"))
 }
 
-
-
-
 sink_text((kable(morph_wide, format = "latex", booktabs = T) %>%
-  kable_styling()), "test.tex")
+  kable_styling()), "07_tables/morph_table.tex")
 
 # Example code
 # LaTeX Table
