@@ -1,3 +1,11 @@
+# DESCRIPTION
+# This code reads in the Eutrification data table, downloads US base maps and projects
+# the data points and data values, using inverse distance weighting (IDW) for the latter. 
+
+# Written by Ryan Nagelkirk
+# Date: 20170413
+
+
 # Load Libraries
 library(downloader)
 library(rgdal)
@@ -9,11 +17,9 @@ library(raster)
 library(tmap)
 
 
-# Set the working directory
-setwd("~/Dropbox/Permanent/Grad School/Classes/ReproducibleMethods/Lakes Work/Data")
 
 # Read in the file
-lakes.dat <- read.csv("nes_data.csv")
+lakes.dat <- read.csv("./nes_data.csv")
 
 # Remove any rows with NA coordinates
 lakes.dat <- subset(lakes.dat, !is.na(Lat))
