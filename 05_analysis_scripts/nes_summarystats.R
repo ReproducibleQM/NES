@@ -1,18 +1,18 @@
 # This code calculates a mean, standard deviation, and N for each measured variable by region & lake type
 
 # read the summary file
-# need to figure out how to read file directly from GitHub
+# make sure you open the Project in R
 nes_all <- read.csv("nes_data.csv", header=TRUE, na.strings="NA", stringsAsFactors = FALSE)
 
 # add a column to specify region
-nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", "NEW HAMPSHIRE", "NEW YORK", "MAINE", "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", "MICHIGAN"), "region"] <- "NORTHEASTERN"
-nes_all[nes_all$state %in% c("ALABAMA", "DELAWARE", "FLORIDA", "GEORGIA", "ILLINOIS", "INDIANA", "KENTUCKY", "MARYLAND", "MISSISSIPPI", "NEW JERSEY", "NORTH CAROLINA", "OHIO", "PENNSYLVANIA", "SOUTH CAROLINA", "TENNESSEE", "VIRGINIA", "WEST VIRGINIA"), "region"] <- "EASTERN"
-nes_all[nes_all$state %in% c("ARKANSAS", "IOWA", "KANSAS", "LOUISIANA", "MISSOURI", "NEBRASKA", "NORTH DAKOTA", "OKLAHOMA", "SOUTH DAKOTA", "TEXAS"), "region"] <- "CENTRAL"
-nes_all[nes_all$state %in% c("ARIZONA", "CALIFORNIA", "COLORADO", "IDAHO", "MONTANA", "NEVADA", "NEW MEXICO", "OREGON", "UTAH", "WASHINGTON", "WYOMING"), "region"] <- "WESTERN"
+nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", "NEW HAMPSHIRE", "NEW YORK", "MAINE", "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", "MICHIGAN"), "region"] <- "Northeastern"
+nes_all[nes_all$state %in% c("ALABAMA", "DELAWARE", "FLORIDA", "GEORGIA", "ILLINOIS", "INDIANA", "KENTUCKY", "MARYLAND", "MISSISSIPPI", "NEW JERSEY", "NORTH CAROLINA", "OHIO", "PENNSYLVANIA", "SOUTH CAROLINA", "TENNESSEE", "VIRGINIA", "WEST VIRGINIA"), "region"] <- "Eastern"
+nes_all[nes_all$state %in% c("ARKANSAS", "IOWA", "KANSAS", "LOUISIANA", "MISSOURI", "NEBRASKA", "NORTH DAKOTA", "OKLAHOMA", "SOUTH DAKOTA", "TEXAS"), "region"] <- "Central"
+nes_all[nes_all$state %in% c("ARIZONA", "CALIFORNIA", "COLORADO", "IDAHO", "MONTANA", "NEVADA", "NEW MEXICO", "OREGON", "UTAH", "WASHINGTON", "WYOMING"), "region"] <- "Western"
 # make REGION a factor
 nes_all$region <- as.factor(nes_all$region)
 # reorder region levels so final table reads from west to east 
-nes_all$region <- factor(nes_all$region, levels = c("WESTERN", "CENTRAL", "NORTHEASTERN", "EASTERN"))
+nes_all$region <- factor(nes_all$region, levels = c("Western", "Central", "Northeastern", "Eastern"))
 
 # reshape data to [n]es_[a]ll [l]ong format
 library(reshape2)
@@ -21,7 +21,7 @@ library(reshape2)
 
 nal <- melt(nes_all, 
             id.vars = c("state", "name", "region", "lake_type"),
-            measure.vars = c((names(nes_all)[c(9:34)])))
+            measure.vars = c((names(nes_all)[c(9:37)])))
 nal$value <- as.numeric(nal$value)
 
 # mean(
@@ -54,14 +54,50 @@ Encoding(summary_nes$stat) <- "UTF-8"
 
 # now name classify variables into morphometry, physicochemical, & loading variables
 summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[1:5]), "variable_type"] <- "MORPHOMETRY"
-summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[6:12]), "variable_type"] <- "PHYSIOCHEMICAL"
-summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[13:28]), "variable_type"] <- "LOADING"
+summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[7:13]), "variable_type"] <- "PHYSIOCHEMICAL"
+summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[14:29]), "variable_type"] <- "LOADING"
+
+# Rename variables
+levels(summary_nes$variable)[levels(summary_nes$variable)=="drainage_area"] <- "Drainage area"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="surface_area"] <- "Surface area"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="mean_depth"] <- "Mean depth"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="total_inflow"] <- "Total inflow"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="retention_time"] <- "Retention time"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="alkalinity"] <- "Alkalinity"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="conductivity"] <- "Conductivity"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="secchi"] <- "Secchi depth"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="tp"] <- "Total P"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="po4"] <- "Total inorg. P"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="tin"] <- "Total inorg. N"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="tn"] <- "Total N"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_pnt_source_muni"] <- "P pt. source mun."
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_pnt_source_industrial"] <- "P pt. source ind."
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_pnt_source_septic"] <- "P pt. source sep."
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_nonpnt_source"] <- "P nonpt. source"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_total"] <- "P total inputs"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_pnt_source_muni"] <- "N pt. source mun."
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_pnt_source_industrial"] <- "N pt. source ind."
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_pnt_source_septic"] <- "N pt. source sep."
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_nonpnt_source"] <- "N nonpt. source"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_total"] <- "N total inputs"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_total_out"] <- "P total exports"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_percent_retention"] <- "P retention (%)"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="p_surface_area_loading"] <- "P load per area"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_total_out"] <- "N total exports"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_percent_retention"] <- "N retention (%)"
+levels(summary_nes$variable)[levels(summary_nes$variable)=="n_surface_area_loading"] <- "N load per area"
+
+# Rename lake types
+summary_nes$lake_type <- as.factor(summary_nes$lake_type)
+levels(summary_nes$lake_type)[levels(summary_nes$lake_type)=="IMPOUNDMENT"] <- "Impoundment"
+levels(summary_nes$lake_type)[levels(summary_nes$lake_type)=="NATURAL"] <- "Natural"
 
 # let's make three different dataframes for each of the variable types (each will be a separate table)
 morph <- summary_nes[summary_nes$variable_type=="MORPHOMETRY", ]
 physchem <- summary_nes[summary_nes$variable_type=="PHYSIOCHEMICAL", ]
 load <- summary_nes[summary_nes$variable_type=="LOADING", ]
 
+# THIS NEXT STEP BREAKS IT :(
 # let's reshape these
 morph_wide <- dcast(morph, variable + lake_type ~ region, value.var="stat")
 physchem_wide <- dcast(physchem, variable + lake_type ~ region, value.var="stat")  
