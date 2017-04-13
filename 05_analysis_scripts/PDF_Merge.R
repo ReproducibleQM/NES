@@ -31,6 +31,12 @@ df477$Pdf <- "477"
 df_final <- merge(df474, df475, all = TRUE)
 df_final <- merge(df_final, df476, all = TRUE)
 df_final <- merge(df_final, df477, all = TRUE)
+
+
+df_final[nchar(df_final[, "storet_code"]) < 4,"storet_code"] <- paste0("0",
+              df_final[nchar(df_final[, "storet_code"]) < 4,"storet_code"])
+  
+
 df_final <- merge(df_final, dfStoret, by.x = "storet_code", by.y = "Storet", 
                   all.x = TRUE)
 df_final$Long <- (-1 * as.numeric(df_final$Long))
