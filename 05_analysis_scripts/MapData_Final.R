@@ -42,14 +42,14 @@ wgs1984.proj <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 
 
 # Download US map
-download("http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_state_20m.zip", dest="us_states.zip", mode="wb") 
-download("http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_nation_20m.zip", dest="us_nation.zip", mode="wb") 
-unzip ("us_states.zip", exdir = ".")
-unzip("us_nation.zip", exdir = ".")
+download("http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_state_20m.zip", dest="./05_analysis_scripts/map_data/us_states.zip", mode="wb") 
+download("http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_nation_20m.zip", dest="./05_analysis_scripts/map_data/us_nation.zip", mode="wb") 
+unzip("./05_analysis_scripts/map_data/us_states.zip", exdir = "./05_analysis_scripts/map_data/")
+unzip("./05_analysis_scripts/map_data/us_nation.zip", exdir = "./05_analysis_scripts/map_data/")
 
 # read in the shapefile
-us.states <- readShapePoly("cb_2014_us_state_20m.shp")
-us.nation <- readShapePoly("cb_2014_us_nation_20m.shp")
+us.states <- readShapePoly("./05_analysis_scripts/map_data/cb_2014_us_state_20m.shp")
+us.nation <- readShapePoly("./05_analysis_scripts/map_data/cb_2014_us_nation_20m.shp")
 # Extract the US without Hawaii, Alaska or Puerto Rico
 us.49 <- us.states[us.states$NAME != "Hawaii",]
 us.48 <- us.49[us.49$NAME != "Alaska",]
