@@ -22,15 +22,15 @@ library(tmap)
 lakes.dat <- read.csv("./nes_data.csv")
 
 # Remove any rows with NA coordinates
-lakes.dat <- subset(lakes.dat, !is.na(Lat))
-lakes.dat <- subset(lakes.dat, !is.na(Long))
-which(is.na(lakes.dat$Lat) == TRUE) # This should now be zero
-which(is.na(lakes.dat$Lat) == TRUE) # This should now be zero
+lakes.dat <- subset(lakes.dat, !is.na(lat))
+lakes.dat <- subset(lakes.dat, !is.na(long))
+which(is.na(lakes.dat$lat) == TRUE) # This should now be zero
+which(is.na(lakes.dat$long) == TRUE) # This should now be zero
 
 # Make the longitudes negative if they aren't already
 for(i in 1:nrow(lakes.dat)){
-  if(lakes.dat$Long[i] > 0){
-    lakes.dat$Long[i] <- -lakes.dat$Long[i]
+  if(lakes.dat$long[i] > 0){
+    lakes.dat$long[i] <- -lakes.dat$Long[i]
   } 
 }
 
@@ -77,8 +77,8 @@ plot(us.nation)
 
 ########  IDW  ##########################################################
 # Create new columns for lat and long
-lakes.dat$x <- lakes.dat$Long  # define x & y as longitude and latitude - not really necessary...could just do with Long Lat in the next line
-lakes.dat$y <- lakes.dat$Lat 
+lakes.dat$x <- lakes.dat$long  # define x & y as longitude and latitude - not really necessary...could just do with Long Lat in the next line
+lakes.dat$y <- lakes.dat$lat 
 
 # Designate x and y columns as coordinates
 coordinates(lakes.dat) = ~x + y
@@ -109,11 +109,20 @@ plot(idw.ras)
 us.cond <- mask(idw.ras, us.unproj.nation)
 plot(us.cond)
 
+
+plot(us.cond, xaxt="n", yaxt = "n")
+axis(1, xaxp=c(10, 200, 19), las=2)
+axis(1, at = seq(10, 200, by = 10), las=2)
+
+
+
+
 # Reproject the raster in the us.atlas projection
 us.cond <- projectRaster(us.cond, crs = us.atlas.proj, over = T)
-plot(us.cond, main = "Conductivity")
+plot(us.cond, main = "Conductivity", ymin = y.range[1], ymax = y.range[2])
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
+
 
 # plot(us.unproj.nation, axes = TRUE, border = "white") # this will get the right axes
 
@@ -218,8 +227,8 @@ plot(us.nation, add = TRUE)
 
 ###################  REGION MAP  #########################################################
 # Get the lat and long column numbers
-lat.col <- which(colnames(lakes.dat) == "Lat")
-long.col <- which(colnames(lakes.dat) == "Long")
+lat.col <- which(colnames(lakes.dat) == "lat")
+long.col <- which(colnames(lakes.dat) == "long")
 
 # Make points out of the lake locations 
 lakes <- SpatialPoints(coords=na.omit(lakes.dat[,c(long.col, lat.col)]), proj4string=wgs1984.proj)
@@ -230,9 +239,20 @@ lakes.equal <- spTransform(lakes, us.atlas.proj)
 rgbbPal <- colorRampPalette(c('red', 'green', 'blue', 'black'))
 
 # Break into 4 colors...should be able to do this another way
-lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$Pdf,breaks = 4))]
+lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$pdf,breaks = 4))]
 
 # Plot the points
 plot(us.n.total, legend = FALSE)
 plot(us.48, add = TRUE, col = "white")
 points(lakes.equal, cex = .5, col = lakes.dat$Col)
+
+
+
+
+
+# ISSUES
+
+# Change axis labels
+# Log transform
+# Add legend title
+# make legend for the point map
