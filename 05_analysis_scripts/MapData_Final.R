@@ -74,6 +74,7 @@ us.nation <- spTransform(us.nation, us.atlas.proj)
 plot(us.48)
 plot(us.nation)
 
+
 # Define a color ramp for the maps
 my.palette <- brewer.pal(n = 9, name = "YlOrRd")
 
@@ -125,6 +126,9 @@ us.cond <- projectRaster(us.cond, crs = us.atlas.proj, over = T)
 plot(log(us.cond), main = "Conductivity", col = pal(255))   #terrain.colors(255))  # rev(heat.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
+
+
+
 
 
 # plot(us.unproj.nation, axes = TRUE, border = "white") # this will get the right axes
