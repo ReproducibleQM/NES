@@ -77,6 +77,9 @@ plot(us.nation)
 # Define a color ramp for the maps
 my.palette <- brewer.pal(n = 9, name = "YlOrRd")
 
+
+pal <- colorRampPalette(c("white", "brown"))
+
 ########  IDW  ##########################################################
 # Create new columns for lat and long
 lakes.dat$x <- lakes.dat$long  # define x & y as longitude and latitude - not really necessary...could just do with Long Lat in the next line
@@ -119,7 +122,7 @@ axis(1, at = seq(10, 200, by = 10), las=2)
 
 # Reproject the raster in the us.atlas projection
 us.cond <- projectRaster(us.cond, crs = us.atlas.proj, over = T)
-plot(log(us.cond), main = "Conductivity", col = terrain.colors(255))  # rev(heat.colors(255))
+plot(log(us.cond), main = "Conductivity", col = pal(255))   #terrain.colors(255))  # rev(heat.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -146,7 +149,7 @@ plot(us.alk)
 
 # Reproject the raster in the us.atlas projection
 us.alk <- projectRaster(us.alk, crs = us.atlas.proj, over = T)
-plot(log(us.alk), main = "Alkalinity", col = terrain.colors(255))
+plot(log(us.alk), main = "Alkalinity", col = pal(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -169,7 +172,7 @@ plot(us.sec)
 
 # Reproject the raster in the us.atlas projection
 us.sec <- projectRaster(us.sec, crs = us.atlas.proj, over = T)
-plot(log(us.sec), main = "Secchi", col = terrain.colors(255))
+plot(log(us.sec), main = "Secchi", col = pal(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -192,7 +195,7 @@ plot(us.p.total)
 
 # Reproject the raster in the us.atlas projection
 us.p.total <- projectRaster(us.p.total, crs = us.atlas.proj, over = T)
-plot(log(us.p.total), main = "P_Total", col = terrain.colors(255))
+plot(log(us.p.total), main = "P_Total", col = pal(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -219,7 +222,7 @@ plot(us.n.total)
 
 # Reproject the raster in the us.atlas projection
 us.n.total <- projectRaster(us.n.total, crs = us.atlas.proj, over = T)
-plot(log(us.n.total), main = "N_Total", col = terrain.colors(255))
+plot(log(us.n.total), main = "N_Total", col = pal(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
