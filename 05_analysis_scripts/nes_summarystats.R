@@ -93,15 +93,22 @@ levels(summary_nes$lake_type)[levels(summary_nes$lake_type)=="IMPOUNDMENT"] <- "
 levels(summary_nes$lake_type)[levels(summary_nes$lake_type)=="NATURAL"] <- "Natural"
 
 # let's make three different dataframes for each of the variable types (each will be a separate table)
-morph <- summary_nes[summary_nes$variable_type=="MORPHOMETRY", ]
-physchem <- summary_nes[summary_nes$variable_type=="PHYSIOCHEMICAL", ]
-load <- summary_nes[summary_nes$variable_type=="LOADING", ]
+# morph <- summary_nes[summary_nes$variable_type=="MORPHOMETRY", ]
+# physchem <- summary_nes[summary_nes$variable_type=="PHYSIOCHEMICAL", ]
+# load <- summary_nes[summary_nes$variable_type=="LOADING", ]
+#Getting weird rows in dataframes created above, changed to use subset function
+
+morphdf <- subset(summary_nes, summary_nes$variable_type == "MORPHOMETRY")
+physchemdf <- subset(summary_nes, summary_nes$variable_type == "PHYSIOCHEMICAL")
+loaddf <- subset(summary_nes, summary_nes$variable_type == "LOADING")
+
+
 
 # THIS NEXT STEP BREAKS IT :(
 # let's reshape these
-morph_wide <- dcast(morph, variable + lake_type ~ region, value.var="stat")
-physchem_wide <- dcast(physchem, variable + lake_type ~ region, value.var="stat")  
-load_wide <- dcast(load, variable + lake_type ~ region, value.var="stat")
+morph_wide <- dcast(morphdf, variable + lake_type ~ region, value.var="stat")
+physchem_wide <- dcast(physchemdf, variable + lake_type ~ region, value.var="stat")  
+load_wide <- dcast(loaddf, variable + lake_type ~ region, value.var="stat")
 
 # let's make the tables
 # install.packages("devtools")
@@ -129,6 +136,15 @@ sink_text <- function(dt, fname){
 
 sink_text((kable(morph_wide, format = "latex", booktabs = T) %>%
   kable_styling()), "07_tables/morph_table.tex")
+
+sink_text((kable(physchem_wide, format = "latex", booktabs = T) %>%
+             kable_styling()), "07_tables/physchem_table.tex")
+
+#Cant get table to not run off page
+sink_text((kable(load_wide, format = "latex", booktabs = T) %>%
+             kable_styling()), "07_tables/load_table.tex")
+
+
 
 # Example code
 # LaTeX Table
