@@ -15,6 +15,7 @@ library(ggplot2)
 library(gstat)
 library(raster)
 library(tmap)
+library(RColorBrewer)
 
 
 
@@ -73,7 +74,8 @@ us.nation <- spTransform(us.nation, us.atlas.proj)
 plot(us.48)
 plot(us.nation)
 
-
+# Define a color ramp for the maps
+my.palette <- brewer.pal(n = 9, name = "YlOrRd")
 
 ########  IDW  ##########################################################
 # Create new columns for lat and long
@@ -115,11 +117,9 @@ axis(1, xaxp=c(10, 200, 19), las=2)
 axis(1, at = seq(10, 200, by = 10), las=2)
 
 
-
-
 # Reproject the raster in the us.atlas projection
 us.cond <- projectRaster(us.cond, crs = us.atlas.proj, over = T)
-plot(us.cond, main = "Conductivity", ymin = y.range[1], ymax = y.range[2])
+plot(log(us.cond), main = "Conductivity", col = terrain.colors(255))  # rev(heat.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -146,17 +146,17 @@ plot(us.alk)
 
 # Reproject the raster in the us.atlas projection
 us.alk <- projectRaster(us.alk, crs = us.atlas.proj, over = T)
-plot(us.alk, main = "Alkalinity")
+plot(log(us.alk), main = "Alkalinity", col = terrain.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
 
 ############  SECCHI  ############################################################
 # Make a new df with no NAs for conductivity
-lakes.sec <- lakes.dat[complete.cases(lakes.dat$sechhi),]
+lakes.sec <- lakes.dat[complete.cases(lakes.dat$secchi),]
 
 # Apply the IDW
-idw <- idw(formula = sechhi ~ 1, locations = lakes.sec, newdata = grd)  # apply idw model for the data
+idw <- idw(formula = secchi ~ 1, locations = lakes.sec, newdata = grd)  # apply idw model for the data
 idw.ras <- raster(idw)
 
 # Rasterize and crop the IDW (might not be needed)
@@ -169,7 +169,7 @@ plot(us.sec)
 
 # Reproject the raster in the us.atlas projection
 us.sec <- projectRaster(us.sec, crs = us.atlas.proj, over = T)
-plot(us.sec, main = "Secchi")
+plot(log(us.sec), main = "Secchi", col = terrain.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -192,7 +192,7 @@ plot(us.p.total)
 
 # Reproject the raster in the us.atlas projection
 us.p.total <- projectRaster(us.p.total, crs = us.atlas.proj, over = T)
-plot(us.p.total, main = "P_Total")
+plot(log(us.p.total), main = "P_Total", col = terrain.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -219,7 +219,7 @@ plot(us.n.total)
 
 # Reproject the raster in the us.atlas projection
 us.n.total <- projectRaster(us.n.total, crs = us.atlas.proj, over = T)
-plot(us.n.total, main = "N_Total")
+plot(log(us.n.total), main = "N_Total", col = terrain.colors(255))
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -253,6 +253,6 @@ points(lakes.equal, cex = .5, col = lakes.dat$Col)
 # ISSUES
 
 # Change axis labels
-# Log transform
+
 # Add legend title
 # make legend for the point map
