@@ -3,7 +3,7 @@
 National Eutrophication Survey
 ==============================
 
-This respository contains a digitally transcribed copy of the National Eutrophication Survey (NES) dataset. The original data can be found in the `archival_pdfs` folder or by searching: <https://www.epa.gov/nscep>
+This respository contains a digitally transcribed copy ([nes\_data.csv](https://github.com/ReproducibleQM/NES/blob/master/nes_data.csv)) of the National Eutrophication Survey (NES) dataset. The original data can be found in the `archival_pdfs` folder or by searching: <https://www.epa.gov/nscep>
 
 Locations
 ---------
