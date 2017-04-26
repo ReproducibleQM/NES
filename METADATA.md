@@ -75,9 +75,9 @@ NES Methods
 |total_inflow      | the mean of the inflows of all tributaries and the immediate drainage | cubic meters per second|
 |retention_time | a mean value determined by dividing the lake volume, in cubic meters, by the mean annual outflow in cubic meters per unit cof time| years or days|
 |retention_time_units | the units of time for each retention entry|years or days|
-|alkalinity | |milligrams per liter|
-|conductivity | |microohms|
-|secchi | |meters|
+|alkalinity | alkalinity|milligrams per liter|
+|conductivity | conductivity|microohms|
+|secchi | secchi|meters|
 |tp | total phosphorus| milligrams per liter|
 |po4 | orthophosphate| milligrams per liter|
 |tin | total inorganic nitrogen| milligrams per liter|
@@ -98,8 +98,8 @@ NES Methods
 |n_total_out | total nitrogen outlet load| kilograms per year|
 |n_percent_retention | percent nitrogen retention|percent|
 |n_surface_area_loading | nitrogen surface area loading| grams per square meter per year|
-|lat | |decimal degrees|
-|long | |decimal degrees|
+|lat | latitude|decimal degrees|
+|long | longitude|decimal degrees|
 
 ### Extent of Study Description
 

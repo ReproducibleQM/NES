@@ -13,6 +13,7 @@ Locations
 Data
 ----
 
+<!-- Do not edit this table without first updating METADATA.md -->
 <table style="width:68%;">
 <colgroup>
 <col width="22%" />
@@ -94,17 +95,17 @@ Data
 </tr>
 <tr class="even">
 <td>alkalinity</td>
-<td></td>
+<td>alkalinity</td>
 <td>milligrams per liter</td>
 </tr>
 <tr class="odd">
 <td>conductivity</td>
-<td></td>
+<td>conductivity</td>
 <td>microohms</td>
 </tr>
 <tr class="even">
 <td>secchi</td>
-<td></td>
+<td>secchi</td>
 <td>meters</td>
 </tr>
 <tr class="odd">
@@ -209,12 +210,12 @@ Data
 </tr>
 <tr class="odd">
 <td>lat</td>
-<td></td>
+<td>latitude</td>
 <td>decimal degrees</td>
 </tr>
 <tr class="even">
 <td>long</td>
-<td></td>
+<td>longitude</td>
 <td>decimal degrees</td>
 </tr>
 </tbody>
