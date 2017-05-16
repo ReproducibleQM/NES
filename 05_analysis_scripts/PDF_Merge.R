@@ -60,4 +60,4 @@ df_final <- df_final[,c(
 
 # Export Dataframe as CSV -------------------------------------------------
 
-write.csv(df_final, file = "nes_data.csv")
+write.csv(df_final, file = "nes_data.csv", row.names = FALSE)
