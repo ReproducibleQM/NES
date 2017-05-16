@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 README.html
+*.log
+*.synctex.gz
