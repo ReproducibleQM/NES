@@ -3,7 +3,7 @@
 National Eutrophication Survey
 ==============================
 
-This respository contains a digitally transcribed copy ([nes\_data.csv](https://github.com/ReproducibleQM/NES/blob/master/nes_data.csv)) of the National Eutrophication Survey (NES) dataset. The original data can be found in the `archival_pdfs` folder or by searching: <https://www.epa.gov/nscep>
+This respository contains a digitally transcribed copy ([nes\_data.csv](https://github.com/ReproducibleQM/NES/raw/master/nes_data.csv)) of the National Eutrophication Survey (NES) dataset. The original data can be found in the `archival_pdfs` folder or by searching: <https://www.epa.gov/nscep>
 
 Locations
 ---------
@@ -227,3 +227,5 @@ References
 Stachelek, J., Ford, C., Kincaid, D., King, K., Miller, H., Nagelkirk, R. (*in prep*) The National Eutrophication Survey: lake characteristics and historical nutrient concentrations.
 
 Stachelek, J. (2017). nesR: Scrape Data from National Eutrophication Survey archival PDFs. R package version 0.1. (<https://github.com/jsta/nesR>) (<https://dx.doi.org/10.5281/zenodo.400258>)
+
+Stachelek, J. (2017). nesRdata: National Eutrophication Survey Data Package. R package version 0.1. <https://github.com/jsta/nesRdata>
