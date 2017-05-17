@@ -45,8 +45,8 @@ wgs1984.proj <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 # Download US map
 download("http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_state_20m.zip", dest="./05_analysis_scripts/map_data/us_states.zip", mode="wb") 
 download("http://www2.census.gov/geo/tiger/GENZ2014/shp/cb_2014_us_nation_20m.zip", dest="./05_analysis_scripts/map_data/us_nation.zip", mode="wb") 
-unzip("./05_analysis_scripts/map_data/us_states.zip", exdir = "./05_analysis_scripts/map_data/")
-unzip("./05_analysis_scripts/map_data/us_nation.zip", exdir = "./05_analysis_scripts/map_data/")
+unzip("./05_analysis_scripts/map_data/us_states.zip", exdir = "./05_analysis_scripts/map_data")
+unzip("./05_analysis_scripts/map_data/us_nation.zip", exdir = "./05_analysis_scripts/map_data")
 
 # read in the shapefile
 us.states <- readShapePoly("./05_analysis_scripts/map_data/cb_2014_us_state_20m.shp")
@@ -123,7 +123,8 @@ axis(1, at = seq(10, 200, by = 10), las=2)
 
 # Reproject the raster in the us.atlas projection
 us.cond <- projectRaster(us.cond, crs = us.atlas.proj, over = T)
-plot(log(us.cond), main = "Conductivity", col = pal(255))   #terrain.colors(255))  # rev(heat.colors(255))
+plot(log(us.cond), col = pal(255), axes = F, box = F)   #terrain.colors(255))  # rev(heat.colors(255))
+title("Conductivity", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -153,7 +154,8 @@ plot(us.alk)
 
 # Reproject the raster in the us.atlas projection
 us.alk <- projectRaster(us.alk, crs = us.atlas.proj, over = T)
-plot(log(us.alk), main = "Alkalinity", col = pal(255))
+plot(log(us.alk), main =, col = pal(255), axes = F, box = F)
+title("Alkalinity", line = -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -176,7 +178,8 @@ plot(us.sec)
 
 # Reproject the raster in the us.atlas projection
 us.sec <- projectRaster(us.sec, crs = us.atlas.proj, over = T)
-plot(log(us.sec), main = "Secchi", col = pal(255))
+plot(log(us.sec), col = pal(255), axes = F, box = F)
+title("Secchi", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -199,7 +202,8 @@ plot(us.p.total)
 
 # Reproject the raster in the us.atlas projection
 us.p.total <- projectRaster(us.p.total, crs = us.atlas.proj, over = T)
-plot(log(us.p.total), main = "P_Total", col = pal(255))
+plot(log(us.p.total), col = pal(255), axes = F, box = F)
+title("P_Total", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -226,7 +230,8 @@ plot(us.n.total)
 
 # Reproject the raster in the us.atlas projection
 us.n.total <- projectRaster(us.n.total, crs = us.atlas.proj, over = T)
-plot(log(us.n.total), main = "N_Total", col = pal(255))
+plot(log(us.n.total), col = pal(255), axes = F, box = F)
+title("N_Total", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
@@ -243,15 +248,19 @@ lakes <- SpatialPoints(coords=na.omit(lakes.dat[,c(long.col, lat.col)]), proj4st
 lakes.equal <- spTransform(lakes, us.atlas.proj)
 
 # Make color palatte
-rgbbPal <- colorRampPalette(c('red', 'green', 'blue', 'black'))
+rgbbPal <- colorRampPalette(c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'))
+# rgbbPal <- colorRampPalette(c('red', 'green', 'blue', 'black'))
 
 # Break into 4 colors...should be able to do this another way
 lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$pdf,breaks = 4))]
+lakes.dat$shape <- as.numeric(cut(lakes.dat$pdf,breaks = 4))
 
 # Plot the points
-plot(us.n.total, legend = FALSE)
+plot(us.n.total, legend = FALSE, axes = F, box = F)
 plot(us.48, add = TRUE, col = "white")
-points(lakes.equal, cex = .5, col = lakes.dat$Col)
+points(lakes.equal, cex = .5, col = lakes.dat$Col, pch = lakes.dat$shape)
+legend(x = 2500000, y = 1, legend = c("474", "475", "476", "477"), bty = "n", 
+       col = c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'), pch = c(1, 2, 3, 4), title = "Region")
 
 
 
