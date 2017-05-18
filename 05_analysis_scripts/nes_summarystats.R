@@ -188,9 +188,47 @@ reorg_table <- function(dt, include_header = FALSE){
   res
 }
 
+reorg_table_n <- function(dt, include_header = FALSE){
+
+  dt$param <- dt$variable
+  dt <- dt[,-which(names(dt) %in% 
+                     c("variable", "stat", "variable_type", "mean", "sd"))]
+  
+  vars <- as.character(unique(dt$param))
+  
+  dt <- melt(dt, id = c("param", "region"))
+  dt <- dt[order(dt$param, dt$region),]
+  dt <- t(dcast(dt, variable ~ param + region, value.var = "value"))
+  dt <- dt[-1,]
+  
+  res <- matrix(nrow = length(dt) / 4, ncol = 4)
+  
+  # Western
+  res[,1] <- dt[seq(1, length(dt), by = 4)]
+  # Central
+  res[,2] <- dt[seq(2, length(dt), by = 4)]
+  # Northeastern
+  res[,3] <- dt[seq(3, length(dt), by = 4)]
+  # Southeastern
+  res[,4] <- dt[seq(4, length(dt), by = 4)]
+  
+  res <- data.frame(res, stringsAsFactors = FALSE)
+  res$Variable <- vars
+  
+  res <- res[,c(ncol(res), 1:(ncol(res) - 1))]
+  
+  names(res)[2:5] <- c("Western", "Central", "Northeastern", "Southeastern")
+  
+  res
+}
+
 big_reorg <- rbind(reorg_table(morphdf, include_header = TRUE),
                    reorg_table(physchemdf),
                    reorg_table(loaddf))
+
+big_reorg_n <- rbind(reorg_table_n(morphdf),
+                   reorg_table_n(physchemdf),
+                   reorg_table_n(loaddf))
 
 morph_wide    <- dcast(morphdf   , variable ~ region, value.var = c("mean", "sd"))
 physchem_wide <- dcast(physchemdf, variable ~ region, value.var = "stat")  
@@ -249,4 +287,10 @@ sink_text(
                           "Northeastern" = 3,
                           "Southeastern" = 3))), 
   "07_tables/big_table_no_n.tex")
+
+sink_text(
+  (knitr::kable(big_reorg_n, 
+                format = "latex", booktabs = T, row.names = FALSE) %>% 
+     kable_styling(latex_options = "striped")), 
+  "07_tables/big_table_n.tex")
 
