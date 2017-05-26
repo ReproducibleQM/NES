@@ -123,17 +123,20 @@ axis(1, at = seq(10, 200, by = 10), las=2)
 
 # Reproject the raster in the us.atlas projection
 us.cond <- projectRaster(us.cond, crs = us.atlas.proj, over = T)
-plot(log(us.cond), col = pal(255), axes = F, box = F)   #terrain.colors(255))  # rev(heat.colors(255))
+plot(log(us.cond), col = pal(255), axes = F, box = F, legend = F)
+plot(log(us.cond), legend.only = T, col = pal(255), smallplot = c(.755, .78, .4, .65), 
+     legend.args = list(text =  "log(conductivity)", side = 4, font = 2, line = 2, cex = .8))   #terrain.colors(255))  # rev(heat.colors(255))
 title("Conductivity", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
 
-
+plot(us.cond, add = T)
 
 
 # plot(us.unproj.nation, axes = TRUE, border = "white") # this will get the right axes
-
+# SOmething like this in the plot of the raster might get the right axis labels. Would set the seq using meters, but then make the labels degrees.
+# axis.args=list(at=seq(r.range[1], r.range[2], 25),labels=seq(r.range[1], r.range[2], 25), cex.axis=0.6),
 
 ############  ALKALINITY ############################################################
 
@@ -154,7 +157,9 @@ plot(us.alk)
 
 # Reproject the raster in the us.atlas projection
 us.alk <- projectRaster(us.alk, crs = us.atlas.proj, over = T)
-plot(log(us.alk), main =, col = pal(255), axes = F, box = F)
+plot(log(us.alk), col = pal(255), axes = F, box = F, legend = F)
+plot(log(us.alk), legend.only = T, col = pal(255), smallplot = c(.755, .78, .4, .65), 
+     legend.args = list(text =  "log(alkalinity)", side = 4, font = 2, line = 2, cex = .8))
 title("Alkalinity", line = -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
@@ -178,7 +183,9 @@ plot(us.sec)
 
 # Reproject the raster in the us.atlas projection
 us.sec <- projectRaster(us.sec, crs = us.atlas.proj, over = T)
-plot(log(us.sec), col = pal(255), axes = F, box = F)
+plot(log(us.sec), col = pal(255), axes = F, box = F, legend = F)
+plot(log(us.sec), legend.only = T, col = pal(255), smallplot = c(.755, .78, .4, .65), 
+     legend.args = list(text =  "log(meters)", side = 4, font = 2, line = 2, cex = .8))
 title("Secchi", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
@@ -202,7 +209,9 @@ plot(us.p.total)
 
 # Reproject the raster in the us.atlas projection
 us.p.total <- projectRaster(us.p.total, crs = us.atlas.proj, over = T)
-plot(log(us.p.total), col = pal(255), axes = F, box = F)
+plot(log(us.p.total), col = pal(255), axes = F, box = F, legend = F)
+plot(log(us.p.total), legend.only = T, col = pal(255), smallplot = c(.755, .78, .4, .65), 
+     legend.args = list(text =  "log[P]", side = 4, font = 2, line = 2, cex = .8)) 
 title("P_Total", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
@@ -230,10 +239,16 @@ plot(us.n.total)
 
 # Reproject the raster in the us.atlas projection
 us.n.total <- projectRaster(us.n.total, crs = us.atlas.proj, over = T)
-plot(log(us.n.total), col = pal(255), axes = F, box = F)
+plot(log(us.n.total), col = pal(255), axes = F, box = F, legend = F)
+plot(log(us.n.total), legend.only = T, col = pal(255), smallplot = c(.755, .78, .4, .65), 
+     legend.args = list(text =  "log[N]", side = 4, font = 2, line = 2, cex = .8)) 
 title("N_Total", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
+
+
+
+
 
 
 
@@ -265,10 +280,3 @@ legend(x = 2500000, y = 1, legend = c("474", "475", "476", "477"), bty = "n",
 
 
 
-
-# ISSUES
-
-# Change axis labels
-
-# Add legend title
-# make legend for the point map
