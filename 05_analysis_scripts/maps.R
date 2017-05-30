@@ -16,6 +16,7 @@ library(gstat)
 library(raster)
 library(tmap)
 library(RColorBrewer)
+library(png)
 
 
 
@@ -270,13 +271,21 @@ rgbbPal <- colorRampPalette(c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'))
 lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$pdf,breaks = 4))]
 lakes.dat$shape <- as.numeric(cut(lakes.dat$pdf,breaks = 4))
 
+
 # Plot the points
+# png("./06_images/20170526/points_newnames_20170530.png", width = 1200, height = 1085)
 plot(us.n.total, legend = FALSE, axes = F, box = F)
 plot(us.48, add = TRUE, col = "white")
 points(lakes.equal, cex = .5, col = lakes.dat$Col, pch = lakes.dat$shape)
-legend(x = 2500000, y = 1, legend = c("474", "475", "476", "477"), bty = "n", 
-       col = c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'), pch = c(1, 2, 3, 4), title = "Region")
+legend(x = 2500000, y = 1, legend = c("Northeastern", "Southeastern", "Central", "Western"), bty = "n", 
+       col = c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'), pch = c(1, 2, 3, 4), title = "Regions", xpd = TRUE, title.adj = 0.39)
+# dev.off()
 
 
-
-
+# png("./06_images/20170526/points_newnames_small_20170530.png")
+plot(us.n.total, legend = FALSE, axes = F, box = F)
+plot(us.48, add = TRUE, col = "white")
+points(lakes.equal, cex = .5, col = lakes.dat$Col, pch = lakes.dat$shape)
+legend(x = 2500000, y = 1, legend = c("Northeastern", "Southeastern", "Central", "Western"), bty = "n", 
+       col = c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'), pch = c(1, 2, 3, 4), title = "Regions", xpd = TRUE, title.adj = 0.39)
+# dev.off()
