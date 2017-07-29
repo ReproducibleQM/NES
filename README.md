@@ -8,7 +8,7 @@ This respository contains a digitally transcribed copy ([nes\_data.csv](https://
 Locations
 ---------
 
-![](06_images/points_trim.jpeg)
+![](06_images/20170526/points_newnames_20170530_trim.jpeg)
 
 Data
 ----
