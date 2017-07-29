@@ -76,7 +76,7 @@ Data
 <tr class="even">
 <td>mean_depth</td>
 <td>the volume of the water body divided by the surface area in square meters</td>
-<td>cubic meters</td>
+<td>meters</td>
 </tr>
 <tr class="odd">
 <td>total_inflow</td>

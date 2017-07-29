@@ -71,7 +71,7 @@ NES Methods
 |lake_type         | natural or impoundment |character|
 |drainage_area | the total drainage area | square kilometers |
 |surface_area   | the area of the water surface|sq km|
-|mean_depth    | the volume of the water body divided by the surface area in square meters| cubic meters|
+|mean_depth    | the volume of the water body divided by the surface area in square meters| meters|
 |total_inflow      | the mean of the inflows of all tributaries and the immediate drainage | cubic meters per second|
 |retention_time | a mean value determined by dividing the lake volume, in cubic meters, by the mean annual outflow in cubic meters per unit cof time| years or days|
 |retention_time_units | the units of time for each retention entry|years or days|
