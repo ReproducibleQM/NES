@@ -1,14 +1,30 @@
 # Calculate mean, standard deviation, and N for each measured variable
 # Setup ####
 
-nes_all <- read.csv("nes_data.csv", header=TRUE, na.strings="NA", stringsAsFactors = FALSE)
+nes_all <- read.csv("nes_data.csv", header=TRUE, na.strings="NA", 
+                    stringsAsFactors = FALSE)
 
-nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", "NEW HAMPSHIRE", "NEW YORK", "MAINE", "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", "MICHIGAN"), "region"] <- "Northeastern"
-nes_all[nes_all$state %in% c("ALABAMA", "DELAWARE", "FLORIDA", "GEORGIA", "ILLINOIS", "INDIANA", "KENTUCKY", "MARYLAND", "MISSISSIPPI", "NEW JERSEY", "NORTH CAROLINA", "OHIO", "PENNSYLVANIA", "SOUTH CAROLINA", "TENNESSEE", "VIRGINIA", "WEST VIRGINIA"), "region"] <- "Southeastern"
-nes_all[nes_all$state %in% c("ARKANSAS", "IOWA", "KANSAS", "LOUISIANA", "MISSOURI", "NEBRASKA", "NORTH DAKOTA", "OKLAHOMA", "SOUTH DAKOTA", "TEXAS"), "region"] <- "Central"
-nes_all[nes_all$state %in% c("ARIZONA", "CALIFORNIA", "COLORADO", "IDAHO", "MONTANA", "NEVADA", "NEW MEXICO", "OREGON", "UTAH", "WASHINGTON", "WYOMING"), "region"] <- "Western"
+nes_all[nes_all$state %in% c("VERMONT", "CONNECTICUT", "RHODE ISLAND", 
+                             "NEW HAMPSHIRE", "NEW YORK", "MAINE", 
+                             "MASSACHUSETTS", "WISCONSIN", "MINNESOTA", 
+                             "MICHIGAN"), "region"] <- "Northeastern"
+nes_all[nes_all$state %in% c("ALABAMA", "DELAWARE", "FLORIDA", "GEORGIA",
+                             "ILLINOIS", "INDIANA", "KENTUCKY", "MARYLAND", 
+                             "MISSISSIPPI", "NEW JERSEY", "NORTH CAROLINA", 
+                             "OHIO", "PENNSYLVANIA", "SOUTH CAROLINA", 
+                             "TENNESSEE", "VIRGINIA", 
+                             "WEST VIRGINIA"), "region"] <- "Southeastern"
+nes_all[nes_all$state %in% c("ARKANSAS", "IOWA", "KANSAS", "LOUISIANA", 
+                             "MISSOURI", "NEBRASKA", "NORTH DAKOTA", "OKLAHOMA",
+                             "SOUTH DAKOTA", "TEXAS"), "region"] <- "Central"
+nes_all[nes_all$state %in% c("ARIZONA", "CALIFORNIA", "COLORADO", "IDAHO", 
+                             "MONTANA", "NEVADA", "NEW MEXICO", "OREGON", 
+                             "UTAH", "WASHINGTON", 
+                             "WYOMING"), "region"] <- "Western"
 nes_all$region <- as.factor(nes_all$region)
-nes_all$region <- factor(nes_all$region, levels = c("Western", "Central", "Northeastern", "Southeastern"))
+nes_all$region <- factor(nes_all$region, levels = c("Western", "Central", 
+                                                    "Northeastern", 
+                                                    "Southeastern"))
 nes_all$Region <- nes_all$region
 
 # convert days to years
@@ -68,7 +84,8 @@ summary_nes[summary_nes$variable %in% c(levels(summary_nes$variable)[14:29]),
 # Rename variables ############################################################
 
 levels(summary_nes$variable)[
-  levels(summary_nes$variable) == "drainage_area"] <- "Drainage area"
+  levels(summary_nes$variable) == "drainage_area"] <- 
+                                          "Drainage area"
 levels(summary_nes$variable)[
   levels(summary_nes$variable) == "surface_area"] <- "Surface area"
 levels(summary_nes$variable)[
@@ -94,7 +111,8 @@ levels(summary_nes$variable)[
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="p_pnt_source_muni"] <- "P pt. source mun."
 levels(summary_nes$variable)[
-  levels(summary_nes$variable)=="p_pnt_source_industrial"] <- "P pt. source ind."
+  levels(summary_nes$variable)=="p_pnt_source_industrial"] <- 
+                                    "P pt. source ind."
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="p_pnt_source_septic"] <- "P pt. source sep."
 levels(summary_nes$variable)[
@@ -104,7 +122,8 @@ levels(summary_nes$variable)[
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="n_pnt_source_muni"] <- "N pt. source mun."
 levels(summary_nes$variable)[
-  levels(summary_nes$variable)=="n_pnt_source_industrial"] <- "N pt. source ind."
+  levels(summary_nes$variable)=="n_pnt_source_industrial"] <- 
+                                    "N pt. source ind."
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="n_pnt_source_septic"] <- "N pt. source sep."
 levels(summary_nes$variable)[
@@ -114,24 +133,25 @@ levels(summary_nes$variable)[
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="p_total_out"] <- "P total exports"
 levels(summary_nes$variable)[
-  levels(summary_nes$variable)=="p_percent_retention"] <- "P retention (%)"
+  levels(summary_nes$variable)=="p_percent_retention"] <- "P retention"
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="p_surface_area_loading"] <- "P load per area"
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="n_total_out"] <- "N total exports"
 levels(summary_nes$variable)[
-  levels(summary_nes$variable)=="n_percent_retention"] <- "N retention (%)"
+  levels(summary_nes$variable)=="n_percent_retention"] <- "N retention"
 levels(summary_nes$variable)[
   levels(summary_nes$variable)=="n_surface_area_loading"] <- "N load per area"
 
-# let's make three different dataframes for each of the variable types (each will be a separate table)
+# let's make three different dataframes for each of the variable types 
+# (each will be a separate table)
 
 morphdf    <- subset(summary_nes, summary_nes$variable_type == "MORPHOMETRY")
 physchemdf <- subset(summary_nes, 
                      summary_nes$variable_type == "PHYSIOCHEMICAL")
 loaddf     <- subset(summary_nes, summary_nes$variable_type == "LOADING")
 
-reorg_table <- function(dt, include_header = FALSE){
+reorg_table   <- function(dt, include_header = FALSE){
   dt$param <- dt$variable
   dt <- dt[,-which(names(dt) %in% c("variable", "stat", "variable_type", "N"))]
   
@@ -222,7 +242,7 @@ reorg_table_n <- function(dt, include_header = FALSE){
   res
 }
 
-big_reorg <- rbind(reorg_table(morphdf, include_header = TRUE),
+big_reorg   <- rbind(reorg_table(morphdf, include_header = TRUE),
                    reorg_table(physchemdf),
                    reorg_table(loaddf))
 
@@ -230,17 +250,13 @@ big_reorg_n <- rbind(reorg_table_n(morphdf),
                    reorg_table_n(physchemdf),
                    reorg_table_n(loaddf))
 
-morph_wide    <- dcast(morphdf   , variable ~ region, value.var = c("mean", "sd"))
-physchem_wide <- dcast(physchemdf, variable ~ region, value.var = "stat")  
-load_wide     <- dcast(loaddf    , variable ~ region, value.var = "stat")
-big_wide      <- rbind(morph_wide, physchem_wide, load_wide)
+# morph_wide    <- dcast(morphdf   , variable ~ region, 
+#                        value.var = c("mean", "sd"))
+# physchem_wide <- dcast(physchemdf, variable ~ region, value.var = "stat")  
+# load_wide     <- dcast(loaddf    , variable ~ region, value.var = "stat")
+# big_wide      <- rbind(morph_wide, physchem_wide, load_wide)
 
 # Make the tables ####
-
-# install.packages("devtools")
-# devtools::install_github("rstudio/rmarkdown")
-# For dev version
-# devtools::install_github("haozhu233/kableExtra")
 
 library(knitr)
 library(kableExtra)
@@ -253,6 +269,7 @@ sink_text <- function(dt, fname){
   write(file = fname, c("\\documentclass{article}",
                         "\\usepackage{booktabs}",
                         "\\usepackage{pdflscape}",
+                        "\\usepackage{siunitx}",
                         "\\usepackage[table]{xcolor}",
                         "\\begin{document}",
                         "\\begin{landscape}",
@@ -261,25 +278,40 @@ sink_text <- function(dt, fname){
                         "\\end{document}"))
 }
 
-sink_text((kable(morph_wide, format = "latex", booktabs = T) %>%
-  kable_styling()), "07_tables/morph_table.tex")
-
-sink_text((kable(physchem_wide, format = "latex", booktabs = T) %>%
-             kable_styling()), "07_tables/physchem_table.tex")
-
-sink_text((kable(load_wide, format = "latex", booktabs = T) %>%
-             kable_styling()), "07_tables/load_table.tex")
-
-sink_text((kable(big_wide, format = "latex", booktabs = T) %>%
-             kable_styling()), "07_tables/big_table.tex")
+# sink_text((kable(morph_wide, format = "latex", booktabs = T) %>%
+#   kable_styling()), "07_tables/morph_table.tex")
+#
+# sink_text((kable(physchem_wide, format = "latex", booktabs = T) %>%
+#              kable_styling()), "07_tables/physchem_table.tex")
+# 
+# sink_text((kable(load_wide, format = "latex", booktabs = T) %>%
+#              kable_styling()), "07_tables/load_table.tex")
+# 
+# sink_text((kable(big_wide, format = "latex", booktabs = T) %>%
+#              kable_styling()), "07_tables/big_table.tex")
 
 names(big_reorg) <- big_reorg[1,]
 names(big_reorg)[1] <- "Variable"
 names(big_reorg)[seq(3, ncol(big_reorg), by = 3)] <- "\u00a0"
 
+units <- c(NA, " ($km^{2}$)", " ($km^{2}$)", " ($m$)", 
+           " ($m^{3} \\cdot s^{-1}$)",
+           " ($years$)", " ($mg \\cdot l^{-1}$)",
+           " ($\\si{\\micro\\ohm}$)", " ($m$)", " ($mg \\cdot l^{-1}$)",
+           " ($mg \\cdot l^{-1}$)", " ($mg \\cdot l^{-1}$)",
+           " ($mg \\cdot l^{-1}$)", " ($kg \\cdot yr^{-1}$)", 
+           " ($kg \\cdot yr^{-1}$)", " ($kg \\cdot yr^{-1}$)", 
+           " ($kg \\cdot yr^{-1}$)", " ($kg \\cdot yr^{-1}$)",
+           " ($kg \\cdot yr^{-1}$)", " ($kg \\cdot yr^{-1}$)", 
+           " ($kg \\cdot yr^{-1}$)", " ($kg \\cdot yr^{-1}$)", 
+           " ($kg \\cdot yr^{-1}$)", " ($kg \\cdot yr^{-1}$)",
+           " (\\%)", "($g / m^{2} / day$)", " ($kg \\cdot yr^{-1}$)", " (\\%)",
+           " ($g / m^{2} / day$)")
+big_reorg[,"Variable"] <- paste0(big_reorg$Variable, units)
+
 sink_text(
     (knitr::kable(big_reorg[-1,], 
-                  format = "latex", booktabs = T, row.names = FALSE) %>% 
+        format = "latex", booktabs = T, row.names = FALSE, escape = FALSE) %>% 
        kable_styling(latex_options = "striped") %>% 
        add_header_above(c("Region", 
                           "Western" = 3,
