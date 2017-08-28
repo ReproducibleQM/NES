@@ -762,7 +762,7 @@ pdf,pagenum,retention_time_units
 477,49,years
 477,50,years
 477,51,days
-477,52,NA
+477,52,days
 477,53,days
 477,54,years
 477,55,years
@@ -792,7 +792,7 @@ pdf,pagenum,retention_time_units
 477,79,years
 477,80,years
 477,81,years
-477,82,NA
+477,82,days
 477,83,days
 477,84,years
 477,85,days
