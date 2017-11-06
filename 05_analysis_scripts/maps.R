@@ -10,6 +10,14 @@ library(tmap)
 library(RColorBrewer) # 
 library(png)
 
+# https://robjhyndman.com/hyndsight/crop-r-figures/
+savepdf <- function(file, width=16, height=10){
+  fname <- paste("06_images/",file,".pdf",sep="")
+  pdf(fname, width = width, height = height,
+      pointsize = 10)
+  par(mgp=c(2.2, 0.45, 0), tcl = -0.4, mar = c(0, 0, 1.1, 1.1))
+}
+
 # Read in the file
 lakes.dat <- read.csv("./nes_data.csv")
 
@@ -133,12 +141,10 @@ plot(us.cond, add = T)
 # labels=seq(r.range[1], r.range[2], 25), cex.axis=0.6),
 
 ############  ALKALINITY ######################################################
-
-# Make a new df with no NAs for conductivity
 lakes.alk <- lakes.dat[complete.cases(lakes.dat$alkalinity),]
 
-# Apply the IDW
-idw <- idw(formula = alkalinity ~ 1, locations = lakes.alk, newdata = grd)  
+idw     <- idw(formula = alkalinity ~ 1, locations = lakes.alk, 
+               newdata = grd)  
 idw.ras <- raster(idw)
 
 # Rasterize and crop the IDW (might not be needed)
@@ -147,47 +153,46 @@ proj4string(idw.ras) <- wgs1984.proj
 
 # Crop the data to the US outline
 us.alk <- mask(idw.ras, us.unproj.nation)
-plot(us.alk)
+# plot(us.alk)
 
-# Reproject the raster in the us.atlas projection
+savepdf("alkalinity", 5, 4.7)
 us.alk <- projectRaster(us.alk, crs = us.atlas.proj, over = T)
 plot(log(us.alk), col = pal(255), axes = F, box = F, legend = F)
 plot(log(us.alk), legend.only = T, col = pal(255), 
      smallplot = c(.755, .78, .4, .65), 
      legend.args = list(text =  "log(alkalinity)", side = 4, font = 2, 
                         line = 2, cex = .8))
-title("Alkalinity", line = -2)
+# title("Alkalinity", line = -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
-
+dev.off()
+system("pdfcrop 06_images/alkalinity.pdf")
+unlink("06_images/alkalinity.pdf")
 
 ############  SECCHI  #########################################################
-# Make a new df with no NAs for secchi
 lakes.sec <- lakes.dat[complete.cases(lakes.dat$secchi),]
 
-# Apply the IDW
 idw <- idw(formula = secchi ~ 1, locations = lakes.sec, newdata = grd)
 idw.ras <- raster(idw)
 
-# Rasterize and crop the IDW (might not be needed)
 proj4string(idw.ras) <- wgs1984.proj
-# plot(idw.ras)
 
-# Crop the data to the US outline
 us.sec <- mask(idw.ras, us.unproj.nation)
-plot(us.sec)
+# plot(us.sec)
 
-# Reproject the raster in the us.atlas projection
+savepdf("secchi", 5, 4.7)
 us.sec <- projectRaster(us.sec, crs = us.atlas.proj, over = T)
 plot(log(us.sec), col = pal(255), axes = F, box = F, legend = F)
 plot(log(us.sec), legend.only = T, col = pal(255), 
      smallplot = c(.755, .78, .4, .65), 
      legend.args = list(text =  "log(meters)", side = 4, font = 2, 
                         line = 2, cex = .8))
-title("Secchi", line =  -2)
+# title("Secchi", line =  -2)
 plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
-
+dev.off()
+system("pdfcrop 06_images/secchi.pdf")
+unlink("06_images/secchi.pdf")
 
 ############  TOTAL_P  ########################################################
 # Make a new df with no NAs for conductivity
@@ -249,26 +254,20 @@ plot(us.48, add = T, border = "gray")
 plot(us.nation, add = TRUE)
 
 ###################  REGION MAP  ##############################################
-# Get the lat and long column numbers
 lat.col <- which(colnames(lakes.dat) == "lat")
 long.col <- which(colnames(lakes.dat) == "long")
 
-# Make points out of the lake locations 
-lakes <- SpatialPoints(coords=na.omit(lakes.dat[,c(long.col, lat.col)]), 
+lakes <- SpatialPoints(coords = na.omit(lakes.dat[,c(long.col, lat.col)]), 
                        proj4string=wgs1984.proj)
-# Reproject
+
 lakes.equal <- spTransform(lakes, us.atlas.proj)
 
-# Make color palatte
 rgbbPal <- colorRampPalette(c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'))
-# rgbbPal <- colorRampPalette(c('red', 'green', 'blue', 'black'))
 
-# Break into 4 colors...should be able to do this another way
-lakes.dat$Col <- rgbbPal(4)[as.numeric(cut(lakes.dat$pdf,breaks = 4))]
+lakes.dat$Col   <- rgbbPal(4)[as.numeric(cut(lakes.dat$pdf,breaks = 4))]
 lakes.dat$shape <- as.numeric(cut(lakes.dat$pdf,breaks = 4))
 
-# Plot the points
-# png("./06_images/20170526/points_newnames_20170530.png", width = 1200, height = 1085)
+savepdf("points_regions", width = 5, height = 4.7)
 plot(us.n.total, legend = FALSE, axes = F, box = F)
 plot(us.48, add = TRUE, col = "white")
 points(lakes.equal, cex = .5, col = lakes.dat$Col, pch = lakes.dat$shape)
@@ -276,15 +275,6 @@ legend(x = 2500000, y = 1,
        legend = c("Northeastern", "Southeastern", "Central", "Western"), 
        bty = "n", col = c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'), 
        pch = c(1, 2, 3, 4), title = "Regions", xpd = TRUE, title.adj = 0.39)
-# dev.off()
-
-
-# png("./06_images/20170526/points_newnames_small_20170530.png")
-plot(us.n.total, legend = FALSE, axes = F, box = F)
-plot(us.48, add = TRUE, col = "white")
-points(lakes.equal, cex = .5, col = lakes.dat$Col, pch = lakes.dat$shape)
-legend(x = 2500000, y = 1, 
-       legend = c("Northeastern", "Southeastern", "Central", "Western"), 
-       bty = "n", col = c('#a6cee3', '#1f78b4', '#b2df8a', '#33a02c'), 
-       pch = c(1, 2, 3, 4), title = "Regions", xpd = TRUE, title.adj = 0.39)
-# dev.off()
+dev.off()
+system("pdfcrop 06_images/points_regions.pdf")
+unlink("06_images/points_regions.pdf")
