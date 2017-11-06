@@ -8,7 +8,7 @@
 
 # Load Libraries
 library(downloader)
-library(rgdal)
+library(rgdal) # 
 library(sp)
 library(maptools)
 library(ggplot2)
@@ -17,8 +17,6 @@ library(raster)
 library(tmap)
 library(RColorBrewer)
 library(png)
-
-
 
 # Read in the file
 lakes.dat <- read.csv("./nes_data.csv")
@@ -36,9 +34,10 @@ for(i in 1:nrow(lakes.dat)){
   } 
 }
 
-# Map the US
+# Map the US ####
 # CRS for the US National Atlas Map
-us.atlas.proj <- CRS("+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs")
+us.atlas.proj <- CRS(paste0("+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0", 
+                            " +a=6370997 +b=6370997 +units=m +no_defs"))
 # CRS for the US in WGS 1984 (world geographic 1984)
 wgs1984.proj <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 
