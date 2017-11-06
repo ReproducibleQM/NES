@@ -127,6 +127,11 @@ Effective management of inland freshwater lakes requires an understanding of the
 
 The U.S. Environmental Protection Agency (EPA) designed and implemented the National Eutrophication Survey (NES) in order to investigate the extent of eutrophication in freshwater lakes and reservoirs across the contiguous United States (US). Sampling took place in over 800 lakes and reservoirs from 1972 to 1975, and included a variety of physical, chemical, and biological metrics including data on nutrients and nutrient loading, hydrologic retention time, morphometry, and plankton community diversity.  Unlike current EPA National Lake Assessments that select a random sample of lakes across the US, the NES  targeted only lakes impacted directly or indirectly by municipal sewage treatment plant discharge (USEPA 2009). Until recently, these data were only available in their entirety as four separate scanned reports representing the northeastern and northcentral  (northeastern), eastern and southeastern (southeastern), central, and western regions of the US (Figure 1). In the remainder of the present paper we refer to the former two regions as simply the northeastern and southeastern regions.
 
+\begin{figure*}[t]
+  \includegraphics[width=12cm]{points_regions-crop.pdf}
+  \caption{Survey locations colored by sampling year (1972 northeastern-red, 1973 southeastern-green, 1974 central-blue, 1975 western-grey).}
+\end{figure*}
+
 To our knowledge, there have been no attempts to transcribe the data into a usable, searchable digital database despite its use in previous studies.   For example, large portions of the dataset were used to examine large scale relationships between residence time and phytoplankton abundance (Soballe and Kimmel, 1987). Also, it was used to predict eutrophication incidence in a Bayesian framework (Lamon and Stow 2004). Smaller portions of the data were used to explore drivers of nutrient loading (Stomp et al., 2011, Brett and Benjamin, 2007). Yet, to our knowledge, the only study to use the NES dataset and provide a publicly available data supplement is Stomp et al., (2011), and their data supplement was limited to a small subset of the available variables relating to phytoplankton community diversity. 
 
 The present study is the first to leverage digital transcription technologies to unlock the full NES dataset. In this paper, we describe the digital transcription of the full NES dataset with the goal of making the dataset openly accessible to the research community. We introduce and publish the data in an open format that requires no proprietary software. It can be easily downloaded, used for analysis, and amended. The provided summary statistics and figures also allow users to quickly assess the utility of the data.. Finally, the code and raw data files are provided to facilitate the extraction of fields not represented in our completed dataset (mostly phytoplankton diversity data).
@@ -143,9 +148,23 @@ We provide the final dataset in an open non-proprietary format (comma-delimited,
 
 The final NES dataset contains observations from 775 lakes and the distribution of these lakes was spatially variable. Although there were more lakes measured in the northeastern and southeastern United States, the number of locations was close to evenly distributed among the remaining regions (Figure 1, Table 1). Specifically, the number of lakes sampled in each region were as follows: northeastern - 200 lakes, southeastern - 245 lakes, central - 177 lakes, and western, 153 lakes. 
 
+% insert table 1
+
 Although the overall number of lakes was similar among regions, they differed in the proportion of lakes classified as impoundments rather than natural lakes. For example, slightly more than half of the lakes studied (462 of 775) were classified as impoundments yet the northeastern region had only 54 impoundments and the southeastern region had 168 impoundments. Conversely, the number of natural lakes sampled in the northeastern region (146 lakes) was more than double that of any other region (77, 48, and 42, for southeastern, western, and central United States, respectively).
 
 We observed substantial spatial variation in many of the individual lake characteristics. For example, lakes in the eastern sub-regions were generally smaller and shallower than lakes in the western sub-region (Table 2). In addition, lakes in the western sub-region generally had higher alkalinity and higher water clarity (Figure 2, 3). Lakes with particularly low alkalinity were found in coastal areas, whereas lakes with particularly high alkalinity were found in Nevada, western Washington, and parts of North Dakota. Comparisons among regions was easy for some well-sampled lake chemistry parameters such as total phosphorus but more difficult for undersampled lake chemistry parameters. A particularly extreme example of this difficulty was total nitrogen measurements in the eastern region, as this parameter was only measured for a single lake (Table 1). 
+
+% insert table 2
+
+\begin{figure*}[t]
+  \includegraphics[width=12cm]{alkalinity-crop.pdf}
+  \caption{Map of log-scaled alkalinity (mg/L) interpolated using inverse distance weighting.}
+\end{figure*}
+
+\begin{figure*}[t]
+  \includegraphics[width=12cm]{secchi-crop.pdf}
+  \caption{Map of secchi depth (m) interpolated using inverse distance weighting.}
+\end{figure*}
 
 The ability to examine these spatial trends was made possible by our optical character recognition procedure which had 6 - 17\% accuracy depending on region and archival report scan quality. In total, we carried out approximately 5,000 hand-corrections to the automated data product as part of our manual quality control review. A total of approximately 650 lakes had values for at least 80\% of the total number of variables shown in Table 1. On an individual lake basis, the most common “missing” data was nutrient loading estimates for individual point and nonpoint-source components. In many cases, this data may not actually be missing but it may have not been a component of the budget for that particular lake. For example, not all lakes have industrial land use so no data is expected in these cases.
 
