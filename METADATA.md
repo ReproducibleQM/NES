@@ -36,7 +36,7 @@ Nov 1972
 
 ### End Date
 
-Dec 1974
+Dec 1975
 
 ## Spatial Coverage
 
@@ -63,7 +63,7 @@ NES Methods
 | variable name | description              |units|
 |---------------|--------------------------|-----|
 |pdf|pdf identifier (474 - 477)| integer|
-|pagenum | page number of the pdf|integer|
+|pagenum | page number of the pdf (not the report page number) |integer|
 |storet_code     | identifier which links measurement to coordinate locations|character|
 |state                | state where the water body resides |character|
 |name               | name of the water body|character|
@@ -106,6 +106,8 @@ NES Methods
 Inland lakes of the continental United States.
 
 ### Sampling description
+
+Most parameters are reported as annual means computed form measurements taken on a monthly basis.
 
 United States Environmental Protection Agency. 1975a.
 National eutrophication survey methods, 1973-1976.
