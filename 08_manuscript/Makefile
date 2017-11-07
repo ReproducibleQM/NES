@@ -1,5 +1,6 @@
-all:
+all: reviewer_response.pdf
 	pdflatex diff.tex
+	pdftk diff.pdf reviewer_response.pdf cat output stacheleketal2017_revised.pdf
 
 pre_response.pdf:
 	pdflatex pre_response.tex
@@ -18,3 +19,5 @@ diff.pdf: pre_response.pdf post_response.pdf
 	pdflatex diff.tex
 	pdflatex diff.tex
 
+reviewer_response.pdf: reviewer_response.tex
+	pdflatex reviewer_response.tex
