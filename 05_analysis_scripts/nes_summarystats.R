@@ -309,20 +309,14 @@ units <- c(NA, " ($km^{2}$)", " ($km^{2}$)", " ($m$)",
            " ($g / m^{2} / day$)")
 big_reorg[,"Variable"] <- paste0(big_reorg$Variable, units)
 
-sink_text(
-    (knitr::kable(big_reorg[-1,], 
-        format = "latex", booktabs = T, row.names = FALSE, escape = FALSE) %>% 
-       kable_styling(latex_options = "striped") %>% 
-       add_header_above(c("Region", 
+knitr::kable(big_reorg[-1,], 
+        format = "latex", booktabs = FALSE, row.names = FALSE, escape = FALSE) %>%     add_header_above(c("Region", 
                           "Western" = 3,
                           "Central" = 3,
                           "Northeastern" = 3,
                           "Southeastern" = 3))), 
   "07_tables/big_table_no_n.tex")
 
-sink_text(
-  (knitr::kable(big_reorg_n, 
-                format = "latex", booktabs = T, row.names = FALSE) %>% 
-     kable_styling(latex_options = "striped")), 
-  "07_tables/big_table_n.tex")
+knitr::kable(big_reorg_n, 
+                format = "latex", booktabs = FALSE, row.names = FALSE)
 
