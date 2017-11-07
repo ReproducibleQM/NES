@@ -4,3 +4,6 @@
 README.html
 *.log
 *.synctex.gz
+*.blg
+*.bbl
+*.aux
