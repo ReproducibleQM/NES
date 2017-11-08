@@ -37,7 +37,7 @@ Data
 </tr>
 <tr class="even">
 <td>pagenum</td>
-<td>page number of the pdf</td>
+<td>page number of the pdf (not the report page number)</td>
 <td>integer</td>
 </tr>
 <tr class="odd">
