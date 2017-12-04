@@ -2,6 +2,9 @@ all: reviewer_response.pdf diff.pdf
 	pdflatex diff.tex
 	pdftk diff.pdf reviewer_response.pdf cat output stacheleketal2017_revised.pdf
 
+abstract.pdf: abstract.tex
+	pdflatex abstract.tex
+
 pre_response.pdf: pre_response.tex
 	pdflatex pre_response.tex
 	bibtex pre_response.aux
