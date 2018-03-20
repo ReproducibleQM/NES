@@ -1,3 +1,4 @@
+# Prep for QA ####
 raw_paths <- c("../nesR/474/res.csv",
                "../nesR/475/res.csv",
                "../nesR/476/res.csv",
@@ -13,6 +14,8 @@ dt_raw <- lapply(seq_len(length(surveys)), function(x){
 dt <- do.call("rbind", dt_raw)
 dt <- dt[, c("survey", "pagenum", "chl")]
 write.csv(dt, "02_raw_data/merged_data/chl.csv", row.names = FALSE)
+
+# after QA ####
 
 nes   <- read.csv("nes_data.csv", stringsAsFactors = FALSE)
 dt_qa <- read.csv("03_qa_data/chl.csv", stringsAsFactors = FALSE)
