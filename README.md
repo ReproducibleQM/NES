@@ -60,6 +60,25 @@ can be found in the `archival_pdfs` folder or by searching:
 | lat                        | latitude                                                                                                                           | decimal degrees                 |
 | long                       | longitude                                                                                                                          | decimal degrees                 |
 
+## Worflow
+
+1.  Use the [nesR](https://github.com/jsta/nesR) package to generate the
+    files in [/02\_raw\_data](/02_raw_data).
+
+2.  Hand check the files in
+    [/02\_raw\_data/merged\_data](/02_raw_data/merged_data) against the
+    pdfs in [/01\_archival\_pdfs](/01_archival_pdfs).
+
+3.  Combine files with
+    [05\_analysis\_scripts/PDF\_Merge.R](05_analysis_scripts/PDF_Merge.R).
+
+## Contributing
+
+We’ve combed the data to try and find all the transciption errors but
+it’s difficult to catch them all. If you find any errors please open
+an [issue](https://github.com/ReproducibleQM/NES/issues/) or submit a
+pull request against the files in [/03\_qa\_data](/03_qa_data).
+
 ## References
 
 Stachelek, J., Ford, C., Kincaid, D., King, K., Miller, H., Nagelkirk,
