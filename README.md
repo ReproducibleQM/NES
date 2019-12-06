@@ -81,9 +81,11 @@ pull request against the files in [/03\_qa\_data](/03_qa_data).
 
 ## References
 
-Stachelek, J., Ford, C., Kincaid, D., King, K., Miller, H., Nagelkirk,
-R. (*in prep*) The National Eutrophication Survey: lake characteristics
-and historical nutrient concentrations.
+Stachelek, J., Ford, C., Kincaid, D., King, K., Miller, H. and
+Nagelkirk, R., 2018. The National Eutrophication Survey: lake
+characteristics and historical nutrient concentrations. Earth System
+Science Data, 10(1), pp.81-86.
+(<https://doi.org/10.5194/essd-10-81-2018>)
 
 Stachelek, J. (2017). nesR: Scrape Data from National Eutrophication
 Survey archival PDFs. R package version 0.1.
