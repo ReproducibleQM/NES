@@ -22,12 +22,12 @@ This respository contains a digitally transcribed copy ([nes_data.csv](https://g
 
 ```{r eval=FALSE, echo=FALSE}
 library(magick)
-points <- image_read("06_images/20170526/points_newnames_20170530.jpeg")
+points <- image_read("06_images/points.jpeg")
 image_write(image_trim(points), 
-            "06_images/20170526/points_newnames_20170530_trim.jpeg")
+            "06_images/points_trim.jpeg")
 ```
 
-![](06_images/20170526/points_newnames_20170530_trim.jpeg)
+![](06_images/points_trim.jpeg)
 
 ## Data
 
