@@ -60,7 +60,7 @@ can be found in the `archival_pdfs` folder or by searching:
 | lat                        | latitude                                                                                                                           | decimal degrees                 |
 | long                       | longitude                                                                                                                          | decimal degrees                 |
 
-## Worflow
+## Workflow
 
 1.  Use the [nesR](https://github.com/jsta/nesR) package to generate the
     files in [/02\_raw\_data](/02_raw_data).

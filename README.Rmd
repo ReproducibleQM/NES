@@ -74,7 +74,7 @@ image_write(image_trim(points),
 |lat | latitude|decimal degrees|
 |long | longitude|decimal degrees|
 
-## Worflow
+## Workflow
 
 1. Use the [nesR](https://github.com/jsta/nesR) package to generate the files in [/02_raw_data](/02_raw_data). 
 
