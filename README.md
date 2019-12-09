@@ -3,7 +3,7 @@
 
 # National Eutrophication Survey
 
-[![DOI](https://img.shields.io/badge/DOI-10.5063/F16D5R2B-blue.svg)](https://doi.org/10.5063/F16D5R2B)
+[![DOI](https://img.shields.io/badge/DOI-10.5063/F1CZ35HF-blue.svg)](https://doi.org/10.5063/F1CZ35HF)
 
 This respository contains a digitally transcribed copy
 ([nes\_data.csv](https://github.com/ReproducibleQM/NES/raw/master/nes_data.csv))
