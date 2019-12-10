@@ -71,7 +71,7 @@ pdf,pagenum,retention_time_units
 474,164,days
 474,165,days
 474,166,days
-474,167,NA
+474,167,years
 474,168,days
 474,169,days
 474,16,days
@@ -249,8 +249,8 @@ pdf,pagenum,retention_time_units
 475,142,days
 475,143,days
 475,144,NA
-475,145,NA
-475,146,NA
+475,145,years
+475,146,days
 475,147,days
 475,148,days
 475,149,days
